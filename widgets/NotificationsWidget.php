@@ -143,6 +143,16 @@ class NotificationsWidget extends Widget
     public $listItemBeforeRender = null;
 
     /**
+     * @var bool
+     */
+    public $bindKeysToCounters = false;
+
+    /**
+     * @var string
+     */
+    public $keyPrefix = '.mnw-';
+
+    /**
      * @var array List of built in themes
      */
     protected static $_builtinThemes = [
@@ -205,6 +215,8 @@ class NotificationsWidget extends Widget
             'pollSeen' => !!$this->pollSeen,
             'pollInterval' => Html::encode($this->pollInterval),
             'counters' => $this->counters,
+            'bindKeys' => $this->bindKeysToCounters,
+            'keyPrefix' => $this->keyPrefix,
         ];
 
         if ($this->theme) {

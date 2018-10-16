@@ -172,6 +172,8 @@ var Notifications = (function(options) {
         delay: 5000,
         theme: null,
         counters: [],
+        bindKeys: false,
+        keyPrefix: '.mnw-',
         markAllSeenSelector: null,
         deleteAllSelector: null,
         listSelector: null,
@@ -347,9 +349,37 @@ var Notifications = (function(options) {
                 });
 
                 // Update all counters
-                for (var i = 0; i < self.opts.counters.length; i++) {
-                    if ($(self.opts.counters[i]).text() != data.length) {
-                        $(self.opts.counters[i]).text(data.length);
+                if (self.opts.bindKeys) {
+                    var countedKeys = {};
+                    $.each(data, function (index, notification) {
+                        var keyClass = self.opts.keyPrefix + notification.key
+                        if (!(keyClass in countedKeys)) {
+                            countedKeys[keyClass] = 1;
+                        } else {
+                            countedKeys[keyClass]++;
+                        }
+                    });
+
+                    for (var i = 0; i < self.opts.counters.length; i++) {
+                        var key = self.opts.counters[i];
+                        var notifications = 0;
+
+                        if (key in countedKeys) {
+                            notifications = countedKeys[key];
+                        }
+                        if (0 === notifications) {
+                            notifications = '';
+                        }
+
+                        if ($(key).text() != notifications) {
+                            $(key).text(notifications);
+                        }
+                    }
+                } else {
+                    for (var i = 0; i < self.opts.counters.length; i++) {
+                        if ($(self.opts.counters[i]).text() != data.length) {
+                            $(self.opts.counters[i]).text(data.length);
+                        }
                     }
                 }
 
