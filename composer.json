@@ -5,7 +5,7 @@
     "type": "yii2-extension",
     "license": "MIT",
     "support": {
-        "source": "https://github.com/machour/yii2-notifications"
+        "source": "https://github.com/ivanpodgorny/yii2-notifications"
     },
     "authors": [
         {
